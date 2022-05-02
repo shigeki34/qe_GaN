@@ -11,7 +11,7 @@
   calculation = 'scf'
   restart_mode = 'from_scratch'
   prefix = 'qa'
-  out_dir = 'out_qa'
+  outdir = 'out_qa'
   pseudo_dir = './'
 /
 &system

@@ -1,0 +1,53 @@
+&CONTROL
+    calculation = "relax"
+    max_seconds =  8.64000e+04
+    restart_mode = 'from_scratch'
+    prefix = 'qa'
+    outdir = 'out_qa'
+    pseudo_dir  = "/home/shigeki/.burai/.pseudopot"
+    title       = "GaN_vcrelax"
+    tstress = .true.
+    tprnfor = .true.
+/
+
+&SYSTEM
+    a            =  3.19000e+00
+    c            =  5.18900e+00
+    degauss      =  1.00000e-02
+    ecutrho      =  2.25000e+02
+    ecutwfc      =  2.50000e+01
+    ibrav        = 4
+    nat          = 4
+    nbnd         = 26
+    ntyp         = 2
+    occupations  = "fixed"
+    smearing     = "gaussian"
+/
+
+&ELECTRONS
+    conv_thr         =  1.00000e-06
+    electron_maxstep = 200
+    mixing_beta      =  7.00000e-01
+    startingpot      = "atomic"
+    startingwfc      = "atomic+random"
+/
+&ions
+/
+&cell
+/
+
+
+K_POINTS {automatic}
+ 12  12  6  1 1 1
+
+ATOMIC_SPECIES
+Ga     69.72300  Ga.pbe-n-van.UPF
+N      14.00674  N.pbe-rrkjus.UPF
+
+ATOMIC_POSITIONS {angstrom}
+Ga      1.595016   0.920864   0.000000
+Ga      0.000000   1.841729   2.594500
+N       1.595016   0.920864   1.945875
+N       0.000000   1.841729   4.540375
+
+

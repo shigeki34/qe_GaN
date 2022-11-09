@@ -1,0 +1,12 @@
+TITLE Produced from pw.x calculation: gan_wz_vc.out
+CELL
+ 3.2153 3.2153 5.23899 90.0 90.0 119.99209
+SYMMETRY NUMBER 1
+SYMMETRY LABEL  P1
+ATOMS
+NAME         X           Y           Z
+Ga            0.6666680851        0.3333319134       -0.0000000000    1   1   0
+Ga            0.3333319159        0.6666680855        0.5000260061
+N             0.6666925477        0.3333074525        0.3766951515
+N             0.3333074513        0.6666925484        0.8767004581
+EOF

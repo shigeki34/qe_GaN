@@ -1,0 +1,45 @@
+&control
+    calculation='vc-relax' ,
+    restart_mode='from_scratch' ,
+    prefix='gan_wz' ,
+    outdir = './gan_wz/' ,
+    wfcdir = './gan_wz/' ,
+    pseudo_dir = './PP' ,
+    disk_io='default' ,
+    forc_conv_thr= 1.d-4 ,
+    etot_conv_thr= 1.d-5 ,
+    verbosity = 'high' ,
+    nstep = 200 ,
+ /
+ &system
+    ibrav= 4 ,
+    celldm(1) = 6.02822634 ,
+    celldm(3) = 1.62664576803 ,
+    nat =  4 ,
+    ntyp = 2 ,
+    ecutwfc = 60.0 ,
+    ecutrho = 360.0 ,
+    nosym = .true.
+ /
+ &electrons
+    electron_maxstep = 200 ,
+    mixing_beta = 0.7 ,
+!   use smaller conv_thr for better results ,
+    conv_thr = 1.0d-14 ,
+ /
+ &ions
+    ion_dynamics='bfgs' ,
+ /
+ &cell
+    press_conv_thr = 0.1
+ /
+ATOMIC_SPECIES
+Ga     69.72300  Ga.pbe-dnl-rrkjus_psl.1.0.0.UPF
+N      14.00674  N.pbe-n-rrkjus_psl.1.0.0.UPF
+ATOMIC_POSITIONS crystal
+Ga            0.6666619112        0.3333380861        0.0000000000    1   1   0
+Ga            0.3333380928        0.6666619098        0.5000041533
+N             0.6666761483        0.3333238540        0.3769034997
+N             0.3333238477        0.6666761500        0.8768910442
+K_POINTS automatic
+ 7 7 4 1 1 1

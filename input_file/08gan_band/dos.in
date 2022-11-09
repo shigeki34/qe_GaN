@@ -1,0 +1,5 @@
+&dos
+outdir = './out_gan',
+prefix='gan',
+fildos='gan.dos',
+/

@@ -16,7 +16,7 @@
     a = 6.38 ,
     c = 28.5 ,
     nat =  52 ,
-    ntyp = 2 ,
+    ntyp = 3 ,
     ecutwfc = 60.0 ,
     ecutrho = 360.0 ,
     nosym = .true.

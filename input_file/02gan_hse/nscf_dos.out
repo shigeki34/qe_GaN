@@ -1,0 +1,57 @@
+
+     Program PWSCF v.6.4.1 starts on 16Sep2022 at 22:47:50 
+
+     This program is part of the open-source Quantum ESPRESSO suite
+     for quantum simulation of materials; please cite
+         "P. Giannozzi et al., J. Phys.:Condens. Matter 21 395502 (2009);
+         "P. Giannozzi et al., J. Phys.:Condens. Matter 29 465901 (2017);
+          URL http://www.quantum-espresso.org", 
+     in publications or presentations arising from this work. More details at
+     http://www.quantum-espresso.org/quote
+
+     Parallel version (MPI), running on     1 processors
+
+     MPI processes distributed on     1 nodes
+     Waiting for input...
+     Reading input from standard input
+Warning: card &DOS ignored
+Warning: card     DEGAUSS =  1.00000E-02 ignored
+Warning: card     DELTAE  =  1.00000E-02 ignored
+Warning: card     EMAX    =  5.00000E+01 ignored
+Warning: card     EMIN    = -5.00000E+01 ignored
+Warning: card     NGAUSS  = 0 ignored
+Warning: card / ignored
+Warning: card &PROJWFC ignored
+Warning: card     DEGAUSS =  1.00000E-02 ignored
+Warning: card     DELTAE  =  1.00000E-02 ignored
+Warning: card     EMAX    =  5.00000E+01 ignored
+Warning: card     EMIN    = -5.00000E+01 ignored
+Warning: card     NGAUSS  = 0 ignored
+Warning: card / ignored
+
+     Current dimensions of program PWSCF are:
+     Max number of different atomic species (ntypx) = 10
+     Max number of k-points (npk) =  40000
+     Max angular momentum in pseudopotentials (lmaxx) =  3
+     Message from routine iosys:
+     wrong startingpot: use default (2)
+
+     Atomic positions and unit cell read from directory:
+     out_qa/qa.save/
+
+
+     IMPORTANT: XC functional enforced from input :
+     Exchange-correlation      = HSE ( 1  4 12  4 0 0)
+     EXX-fraction              =        0.25
+     Any further DFT definition will be discarded
+     Please, verify this is what you really want
+
+               file Ga.pbe-dn-kjpaw_psl.1.0.0.UPF: wavefunction(s)  4S renormalized
+               file N.pbe-n-kjpaw_psl.1.0.0.UPF: wavefunction(s)  2S renormalized
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+     Error in routine setup (1):
+     hybrid XC not allowed in non-scf calculations
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+     stopping ...

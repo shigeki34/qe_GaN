@@ -1,0 +1,5 @@
+&projwfc
+outdir = './out_gan',
+prefix='gan',
+degauss=0.01,
+/

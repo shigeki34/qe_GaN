@@ -1,0 +1,6 @@
+&bands
+outdir = './out_gan',
+prefix='gan',
+filband='gan.band',
+lsym=.true.
+/

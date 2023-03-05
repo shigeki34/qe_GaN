@@ -1,0 +1,212 @@
+\documentclass[ % ドキュメントクラス
+  uplatex,%upLaTeXを使う
+  a5paper,%A5サイズにする
+  papersize%紙のサイズがデフォルトと違う場合、PDFにうまく伝える
+]{jsbook}
+
+%% フォント関連
+%\usepackage[T1]{fontenc} % フォントでT1を使うこと
+%\usepackage{textcomp} % フォントでTS1を使うこと
+%\usepackage[utf8]{inputenc} % ファイルがUTF8であること
+%\usepackage{newpxtext,newpxmath} % ローマンと数式の字体をPalatinoに基づいた新PXフォントで
+%\usepackage{zi4}%等幅フォントをInconsolataで
+%\usepackage[multi,deluxe,jis2004]{otf}
+%\usepackage[prefernoncjk]{pxcjkcat} % なるべく「半角」扱いで。
+%\cjkcategory{sym18}{cjk} % sym18 (U+25A0 - U+25FF Geometric Shapes) を和文文字あつかい
+%\renewcommand{\bfdefault}{bx}
+
+% 数式など
+\usepackage{amsmath}
+\usepackage{physics}
+
+%% 図表など
+% 図の読みこみのために
+\usepackage[dvipdfmx, hiresbb]{graphicx, xcolor}
+\usepackage{booktabs} % 表の横罫線
+\usepackage{lscape}  % 表などを90度回転させる
+\usepackage{here}
+
+%罫線
+\makeatletter
+  \def\vhrulefill#1{\leavevmode\leaders\hrule\@height#1\hfill \kern\z@}
+\makeatother
+%URL https://latex.org/forum/viewtopic.php?t=8117
+
+%% 囲み枠
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable} % ページをまたいで分割できるように
+\tcbuselibrary{skins} % さまざまな skin を準備
+\tcbuselibrary{theorems} % 定理環境
+
+% 枠の定義
+\newtcolorbox{summary}{
+  sharp corners, % 角を丸くしない
+  boxrule=0pt, % ボックスの罫線なし
+  colback=green!20!white, % ボックスの背景色
+}
+
+\newtcolorbox{column}{
+  breakable,
+  sharp corners, % 角を丸くしない
+  boxrule=0pt, % ボックスの罫線なし
+  colback=blue!20!white, % ボックスの背景色
+}
+
+\newtcolorbox{code}{
+  breakable,
+  sharp corners, % 角を丸くしない
+  boxrule=0pt, % ボックスの罫線なし
+  colback=black!20!white, % ボックスの背景色
+}
+
+\definecolor{safecolor}{rgb}{0.2, 0.4, 0.8}
+
+\newtcolorbox{example}[2][]%%%〇〇の定理
+{enhanced,%%%tikzを用いた記法の処理
+left=22pt,right=22pt,%%%box内左右の余白
+fonttitle=\gtfamily\bfseries,%%%タイトルのフォント指定
+coltitle=white,%%%タイトルの文字の色
+colbacktitle=blue!50!black,%%%タイトルの背景の色
+attach boxed title to top left={},%%%タイトルを左寄せに、少し微調整
+boxed title style={skin=enhancedfirst jigsaw,arc=1mm,bottom=0mm,boxrule=0mm},%%%タイトルボックスの装飾
+boxrule=0.5pt,%%%枠線の太さ
+colback=safecolor!5!,%%%本文の背景色
+colframe=safecolor,%%%本文の枠の色
+sharp corners=northwest,%%%左上の角の調整
+drop fuzzy shadow,%%%影をつける
+breakable,%%%ページマタギOK
+title=\vspace{3mm}#2,%%%タイトルは直接入力
+arc=1mm,%弧
+#1}%
+%上記までプリアンブル
+
+\newtcolorbox{note}[1]{
+  breakable, % ページをまたいでボックスを分割
+  before skip=20pt plus 2pt minus 2pt, % ボックスの前の空き
+  after skip=20pt plus 2pt minus 2pt, % ボックスの後の空き
+  boxrule=0.4pt, % ボックスの罫線の太さ
+  colframe=black!95, % フレームの色
+  colback=white!95, % ボックスの背景色
+  fonttitle=\gtfamily\bfseries, % タイトルのフォント
+  title=#1 % タイトルのテキスト
+}
+
+% 参考情報を出力する命令を作る
+\newtcbox{mysbox}{ % box を作る命令
+  boxrule=0.4pt, % ボックスの罫線の太さ
+  colframe=black, % フレームの色
+  colback=black!10, % ボックスの背景色
+  top=0mm,
+  bottom=0mm,
+  left=0mm,
+  right=0mm,
+  on line, arc=0.5mm}
+\newcommand{\sanko}[1]{%
+  \begin{itemize}
+    \item[\mysbox{\small\gtfamily 参考}] #1
+  \end{itemize}
+}
+
+% エピグラフ
+\usepackage{epigraph}
+\setlength{\epigraphwidth}{.6\textwidth}
+
+
+%% ソースコードの出力
+\usepackage{listings}
+\lstset{ % 色々な設定
+    language=R, % プログラミング言語名（ここではR言語）
+    basicstyle=\ttfamily, % 基本的にタイプライター体にする
+    numbers=left, % 左側に行番号を表示
+    numberstyle=\small, % 行番号は小さめに
+    numbersep=16pt, % 行番号をどれだけ離すか
+    % showspaces=true,% スペースを表示したければtrueにする
+    xleftmargin=25pt, % 左側のマージン
+    frame=single, %ソースコードを囲むフレーム
+    framesep=10pt, %フレームとコードの間隔
+    backgroundcolor=\color[gray]{0.95}, % 背景色
+    breaklines=true % 長い行は改行する
+}
+\renewcommand{\lstlistingname}{ソースコード}
+
+% タイトルページの出版社ロゴ
+%\newcommand*{\plogo}{\fbox{$\mathcal{PL}$}} % Generic dummy publisher logo
+%タイトルページの色
+\definecolor{titlepagecolor}{rgb}{0.168, 0.168, 0.172}
+\definecolor{titlecolor}{rgb}{0.925, 0.925, 0.905}
+
+%% misc
+\usepackage{okumacro} % 圏点などのために
+\usepackage{pxrubrica} % ルビをつける（okumacroのrubyは使わない）
+
+
+%% hyperrefの設定
+\usepackage[dvipdfmx, %
+   bookmarks=true, %PDFにしおりをつける
+   bookmarksnumbered=true, %しおりに節番号などをつける
+   colorlinks=false, %リンクには色をつけない
+   hyperfootnotes=false, %脚注からのリンクを作らない
+   pdfborder={0 0 0}, % リンクの枠なし
+   %pdfpagelayout=TwoPageRight, %奇数頁が右側になるような見開きモードで開く
+   pdfpagemode=UseNone]{hyperref}
+
+% PDFにしたときのしおりの文字化けを防ぐ
+\usepackage{pxjahyper}
+
+%% 索引
+\usepackage{makeidx}
+\makeindex
+
+
+\begin{document}
+
+% 標題
+\begin{titlepage} % Suppresses displaying the page number on the title page and the subsequent page counts as page 1
+  \pagecolor{titlepagecolor}
+
+	\raggedright % Right align the title page
+
+	%\rule{1pt}{\textheight} % Vertical line
+	%\hspace{0.05\textwidth} % Whitespace between the vertical line and title page text
+	%\parbox[b]{0.75\textwidth}{ % Paragraph box for holding the title page text, adjust the width to move the title page left or right on the page
+    \color{titlecolor}
+		{
+    {\Huge \bfseries Qauntum Espressoを\\
+    使った第一原理計算入門}\\}% Title
+    \color{green}{\vhrulefill{5pt}}
+
+    \color{titlecolor}
+    {
+    {\Large GaNデバイス開発への応用を目指して}\\[3\baselineskip] % Subtitle or further description
+    {\Large \textsc{著：ねこまほうつかい}} % Author name, lower case for consistent small caps
+    }
+
+    \begin{figure}[h]
+      \begin{center}
+        \includegraphics[scale=0.5]{./sumnail/sumnail_01.png}
+      \end{center}
+    \end{figure}
+		%\vspace{0.5\textheight} % Whitespace between the title block and the publisher
+
+		{\Large 量子茶房}\\[\baselineskip]% Publisher and logo
+
+\end{titlepage}
+% 標題終わり
+\pagecolor{white}
+\frontmatter
+
+\tableofcontents % 目次
+
+\mainmatter
+
+
+\input{./chap01/chap01.tex}
+\input{./chap02/chap02.tex}
+\input{./chap03/chap03.tex}
+\input{./ref/cite.tex}
+
+
+\backmatter
+\printindex
+
+\end{document}

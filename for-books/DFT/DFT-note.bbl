@@ -1,0 +1,75 @@
+\begin{thebibliography}{10}
+
+\bibitem{defects_gan}
+Michael~A. Reshchikov and Hadis Morko\d{c}.
+\newblock Luminescence properties of defects in gan.
+\newblock {\em Journal of Applied Physics}, 97:061301, 3 2005.
+
+\bibitem{dft_gan_defect_2004}
+Chris G.~Van de~Walle and J\"{o}rg Neugebauer.
+\newblock First-principles calculations for defects and impurities:
+  Applications to iii-nitrides.
+\newblock {\em Journal of Applied Physics}, 95:3851--3879, 4 2004.
+
+\bibitem{dft_gan_defect_2017}
+John~L. Lyons and Chris G.~Van de~Walle.
+\newblock Computationally predicted energies and properties of defects in gan.
+\newblock {\em npj Computational Materials}, 3:12, 12 2017.
+
+\bibitem{dft_gan_growth_carbon}
+Pramod Reddy, Shun Washiyama, Felix Kaess, Ronny Kirste, Seiji Mita, Ramon
+  Collazo, and Zlatko Sitar.
+\newblock Point defect reduction in mocvd (al)gan by chemical potential control
+  and a comprehensive model of c incorporation in gan.
+\newblock {\em Journal of Applied Physics}, 122:245702, 12 2017.
+
+\bibitem{dft_gan_growth_oxygen}
+Dennis Szymanski, Ke~Wang, Felix Kaess, Ronny Kirste, Seiji Mita, Pramod Reddy,
+  Zlatko Sitar, and Ramon Collazo.
+\newblock Systematic oxygen impurity reduction in smooth n-polar gan by
+  chemical potential control.
+\newblock {\em Semiconductor Science and Technology}, 37:015005, 1 2022.
+
+\bibitem{movpe_gan}
+Akinori Koukitu and Yoshinao Kumagai.
+\newblock Thermodynamic analysis of group iii nitrides grown by metal-organic
+  vapour-phase epitaxy (movpe), hydride (or halide) vapour-phase epitaxy (hvpe)
+  and molecular beam epitaxy (mbe).
+\newblock {\em Journal of Physics: Condensed Matter}, 13:6907--6934, 8 2001.
+
+\bibitem{movpe_gan_jap}
+関~壽 纐纈~明伯.
+\newblock 窒化物半導体気相エピタキシーの熱力学.
+\newblock {\em 日本結晶成長学会誌}, 25(2):81--98, 1998.
+
+\bibitem{qe-tutorial_kyoto-yukawa}
+雑多な記録.
+\newblock
+  \url{http://www2.yukawa.kyoto-u.ac.jp/~koudai.sugimoto/dokuwiki/doku.php?id=start}.
+
+\bibitem{GaN_DFT_str}
+A.~L. Rosa and J.~Neugebauer.
+\newblock First-principles calculations of the structural and electronic
+  properties of clean gan (0001) surfaces.
+\newblock {\em Physical Review B}, 73:205346, 5 2006.
+
+\bibitem{GaN_DFT_str_2}
+{\em Properties of group III nitrides / edited by James H. Edgar.}
+\newblock EMIS datareviews series ; no. 11. INSPEC, Institution of Electrical
+  Engineers, London, 1994 - 1994.
+
+\bibitem{maezono_DFT}
+市場~友宏 前園~涼.
+\newblock {\em 動かして理解する 第一原理電子状態計算}.
+\newblock 森北出版, 2020.
+
+\bibitem{Blochl}
+Peter~E. Bl\"ochl, O.~Jepsen, and O.~K. Andersen.
+\newblock Improved tetrahedron method for brillouin-zone integrations.
+\newblock {\em Phys. Rev. B}, 49:16223--16233, Jun 1994.
+
+\bibitem{SCF_example_qiita}
+Quantum espresso入力ファイル作成手順２．scf計算の設定.
+\newblock \url{https://qiita.com/xa_member/items/a098e94d633a1d29f1c0}.
+
+\end{thebibliography}

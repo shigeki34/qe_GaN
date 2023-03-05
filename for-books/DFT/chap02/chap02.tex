@@ -1,0 +1,253 @@
+\chapter{構造最適化計算}
+
+\begin{summary}
+第一原理計算は、 物質や構造の特性を理解するための重要なツールである。しかし、計算を行う前には、研究対象となる系の構造を最適化することが非常に重要である。なぜなら、構造中の原子の配置が不自然だと、計算で得られる結果がどうしても正しくなくなるからである。構造を最適化し、安定な原子配置に基づいて計算を行うことは、第一原理計算で得られる結果の精度を保証するための重要なステップである。構造の最適化では、系が最小エネルギーの状態に達するまで、格子内の原子の位置を調整する。計算の結果得られた原子配置は、最も安定した原子配置\footnote{計算の結果得られた構造が局所安定な解であることは確認する必要がある。また、構造最適化だけでは不十分な場合もある。}であり、今後の第一原理計算の良い出発点となる。
+\end{summary}
+
+\newpage
+
+\section{構造最適化計算のやり方}
+Quantum Espressoでおこなえる構造最適化計算は次の二種類がある。
+\begin{enumerate}
+  \item 格子定数は変化させずに、原子の内部座標を最適化する。
+  \item 内部座標とともに格子定数も変化させて最適化する。
+\end{enumerate}
+
+webサイト\cite{qe-tutorial_kyoto-yukawa}からSiの構造緩和計算を行う計算例を引用し示したのち、それを参考に作成したGaNの構造最適化計算の例を示す。
+
+\section{Siの構造最適化}
+\subsection{原子位置の構造緩和}
+Siの格子定数はそのままで、構造緩和させる。
+本来、単位胞内におけるSi原子の位置は(0, 0, 0)と(0.25, 0.25, 0.25)であるが、わざと少しずらした点で構造緩和させてみる。
+\begin{example}{Si.relax.in}
+\begin{verbatim}
+  &control
+     calculation='relax'
+     prefix='Si'
+     pseudo_dir='./pseudo/'
+     outdir = './tmp/'
+     etot_conv_thr = 1.d-5
+     forc_conv_thr = 1.d-4
+  /
+  &system
+     ibrav=  2, celldm(1) =10.2, nat=  2, ntyp= 1,
+     ecutwfc = 30.0,
+  /
+  &electrons
+     conv_thr = 1.0d-8
+  /
+  &ions
+  /
+  ATOMIC_SPECIES
+   Si  28.086  Si.pz-vbc.UPF
+  ATOMIC_POSITIONS
+   Si 0.00 0.00 0.00 0 0 0
+   Si 0.22 0.23 0.24
+  K_POINTS automatic
+    6 6 6 1 1 1
+\end{verbatim}
+\end{example}
+入力パラメータのうち構造緩和に関係するところを説明する。
+まず、格子定数を変化させない場合は、calculation='relax'とする。
+構造緩和における収束の判断を行う閾値は、\verb|etot_conv_thrとforc_conv_thr|である。前者はエネルギーの変化に関する閾値、後者は原子に加わる力の変化に関する閾値である。
+
+加えて、relax計算の場合、\verb|&|ionsという項目が必要となる。上記ではこの項目はデフォルトの値を使用している。
+
+原子位置に関して、原点のSi原子は動かしたくないため、座標の後ろに0 0 0を付け加えている。これは第一成分、第二成分、第三成分のすべてを動かさないという記述で、例えば第一成分のみ動かしたい場合は1 0 0を付け加える。
+
+\subsection{格子定数の構造緩和}
+
+続いて、格子定数の構造緩和を行う例を示す。
+Siの格子定数はボーア半径単位で10.2程度であり、少しずらして構造緩和を行う。
+
+先ほどのSi.relax.inとの違いは、
+\begin{itemize}
+  \item calculation='vc-relax'に変更
+  \item \verb|&|cellを追加
+  \item \verb|press_conv_thr|を追加(任意)
+\end{itemize}
+である。
+
+\begin{example}{Si.vc-relax.in}
+\begin{verbatim}
+  &control
+     calculation='vc-relax'
+     prefix='Si'
+     pseudo_dir='./pseudo/'
+     outdir = './tmp/'
+     etot_conv_thr = 1.d-5
+     forc_conv_thr = 1.d-4
+  /
+  &system
+     ibrav=  2, celldm(1) =10.0, nat=  2, ntyp= 1,
+     ecutwfc = 30.0,
+  /
+  &electrons
+     conv_thr = 1.0d-8
+  /
+  &ions
+  /
+  &cell
+    press_conv_thr = 0.1
+  /
+  ATOMIC_SPECIES
+   Si  28.086  Si.pz-vbc.UPF
+  ATOMIC_POSITIONS
+   Si 0.00 0.00 0.00 0 0 0
+   Si 0.25 0.25 0.25
+  K_POINTS automatic
+    6 6 6 1 1 1
+\end{verbatim}
+\end{example}
+
+\section{GaNの構造最適化}
+Si原子の入力ファイル例を参考に、GaNの構造緩和計算のための入力ファイルを作成する。
+\subsection{原子位置の構造緩和}
+格子定数はそのままに、原子位置の構造緩和をおこなう。
+入力ファイルは下記の通りである。
+\begin{example}{GaN.relax.in}
+\begin{verbatim}
+  &control
+      calculation='relax' ,
+      restart_mode='from_scratch' ,
+      prefix='GaN' ,
+      outdir = './GaN/' ,
+      wfcdir = './GaN/' ,
+      pseudo_dir = './PP' ,
+      disk_io='default' ,
+      forc_conv_thr= 1.d-4 ,
+      etot_conv_thr= 1.d-5 ,
+      verbosity = 'high' ,
+      nstep = 200 ,
+   /
+   &system
+      ibrav= 4 ,
+      celldm(1) = 6.02822634 ,
+      celldm(3) = 1.62664576803 ,
+      nat =  4 ,
+      ntyp = 2 ,
+      ecutwfc = 60.0 ,
+      ecutrho = 360.0 ,
+      nosym = .true.
+   /
+   &electrons
+      electron_maxstep = 200 ,
+      mixing_beta = 0.7 ,
+  !   use smaller conv_thr for better results ,
+      conv_thr = 1.0d-14 ,
+   /
+   &ions
+   /
+  ATOMIC_SPECIES
+  Ga     69.72300  Ga.pbe-dnl-rrkjus_psl.1.0.0.UPF
+  N      14.00674  N.pbe-n-rrkjus_psl.1.0.0.UPF
+  ATOMIC_POSITIONS crystal
+  Ga     0.666667   0.333333   0.000000 1 1 0
+  Ga     0.333333   0.666667   0.500000
+  N      0.666667   0.333333   0.375000
+  N      0.333333   0.666667   0.875000
+  K_POINTS automatic
+   7 7 4 1 1 1
+\end{verbatim}
+\end{example}
+Siの場合と違って(0, 0, 0)の原点に原子は存在せず、(2/3, 1/3, 0)にGa原子が存在している。そこで、第三成分のみ固定し、原子位置の構造緩和計算を実施している。
+GaNの単位胞はc軸 = z方向に長い格子なので、k点の切り方もz方向はx, y方向の半分に設定している。
+
+\subsection{格子定数の構造緩和}
+続いて、格子定数の構造緩和の入力ファイル例を示す。
+原子位置は上記の原子位置の構造緩和によって得られた結果を反映している。
+\begin{example}{GaN.vc-relax.in}
+\begin{verbatim}
+  &control
+      calculation='vc-relax' ,
+      restart_mode='from_scratch' ,
+      prefix='gan_wz' ,
+      outdir = './gan_wz/' ,
+      wfcdir = './gan_wz/' ,
+      pseudo_dir = './PP' ,
+      disk_io='default' ,
+      forc_conv_thr= 1.d-4 ,
+      etot_conv_thr= 1.d-5 ,
+      verbosity = 'high' ,
+      nstep = 200 ,
+   /
+   &system
+      ibrav= 4 ,
+      celldm(1) = 6.02822634 ,
+      celldm(3) = 1.62664576803 ,
+      nat =  4 ,
+      ntyp = 2 ,
+      ecutwfc = 60.0 ,
+      ecutrho = 360.0 ,
+      nosym = .true.
+   /
+   &electrons
+      electron_maxstep = 200 ,
+      mixing_beta = 0.7 ,
+  !   use smaller conv_thr for better results ,
+      conv_thr = 1.0d-14 ,
+   /
+   &ions
+      ion_dynamics='bfgs' ,
+   /
+   &cell
+      press_conv_thr = 0.1
+   /
+  ATOMIC_SPECIES
+  Ga     69.72300  Ga.pbe-dnl-rrkjus_psl.1.0.0.UPF
+  N      14.00674  N.pbe-n-rrkjus_psl.1.0.0.UPF
+  ATOMIC_POSITIONS crystal
+  Ga 0.6666619112 0.3333380861 0.0000000000 1 1 0
+  Ga 0.3333380928 0.6666619098 0.5000041533
+  N  0.6666761483 0.3333238540 0.3769034997
+  N  0.3333238477 0.6666761500 0.8768910442
+  K_POINTS automatic
+   7 7 4 1 1 1
+\end{verbatim}
+\end{example}
+
+\subsection{構造最適化の結果}
+上記の入力ファイルで構造最適化計算を行った結果は表\ref{gan_str-opt}に示す。
+初期の値は実験で得られた格子定数で、最適化後にはa軸とc軸どちらも実験値より大きな値となった。
+
+\begin{table}[hbt]
+  \caption{GaNの構造最適化計算の結果}
+  \label{gan_str-opt}
+  \centering
+  \begin{tabular}{lccc}
+    \hline
+     & a [$\AA$] & c [$\AA$] & a/c \\
+     \hline \hline
+     初期 & 3.19 & 5.189 & 1.627 \\
+     最適化後 & 3.215 & 5.239 & 1.629\\
+     \hline
+  \end{tabular}
+\end{table}
+
+上記の結果について、論文で報告されている結果と比較してみる。GaNの構造最適化計算に関する論文\cite{GaN_DFT_str}で述べられている結果を表\ref{gan_str-opt-ref}に示す。
+
+\begin{table}[hbt]
+  \caption{論文で報告されているGaNの構造最適化結果\cite{GaN_DFT_str}}
+  \label{gan_str-opt-ref}
+  \centering
+  \begin{tabular}{lccc}
+    \hline
+     & a [$\AA$] & c [$\AA$] & a/c \\
+     \hline \hline
+     LDA & 3.196 & 5.213 & 1.631 \\
+     PBE & 3.252 & 5.298 & 1.629\\
+     Exp.\cite{GaN_DFT_str_2} & 3.189 & 5.179 & 1.624\\
+     \hline
+  \end{tabular}
+\end{table}
+
+論文ではLDAとPBE(GGA)で計算した場合の結果を比較しており、交換相関項の違いで構造最適化後の格子定数に違いがみられる。
+
+今回の計算はPBEを用いて計算しており、論文と同程度の結果が得られていることがわかる。このことから、上記の入力ファイルで問題なく計算が実行できていると判断した。
+
+\section{構造最適化に関するトピック}
+\subsection{得られる格子定数の結果に関して}
+一般的に構造最適化で得られる格子定数は、LDA計算(PZ型の擬ポテンシャルなど)では過小評価され、GGA計算(PBE型の擬ポテンシャルなど)では過大評価される。
+
+最近ではPBEを改善したPBESOLという交換相関ポテンシャルが実験の格子定数を比較的よく再現できるようになっている。しかし、格子定数を計算から求めるのは困難なので、実運用上は格子定数は測定値を使用し、内部座標についてのみ最適化を行うことが多い。
+\section{まとめ}
